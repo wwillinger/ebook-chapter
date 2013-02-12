@@ -1,0 +1,400 @@
+% This is "sig-alternate.tex" V1.3 OCTOBER 2002
+% This file should be compiled with V1.6 of "sig-alternate.cls" OCTOBER 2002
+%
+% This example file demonstrates the use of the 'sig-alternate.cls'
+% V1.6 LaTeX2e document class file. It is for those submitting
+% articles to ACM Conference Proceedings WHO DO NOT WISH TO
+% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE.
+% The 'sig-alternate.cls' file will produce a similar-looking,
+% albeit, 'tighter' paper resulting in, invariably, fewer pages.
+%
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V1.6) produces:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with ACM data
+%       4) NO page numbers
+%
+% as against the acm_proc_article-sp.cls file which
+% DOES NOT produce 1) thru' 3) above.
+%
+% Using 'sig-alternate.cls' you have control, however, from within
+% the source .tex file, over both the CopyrightYear
+% (defaulted to 2002) and the ACM Copyright Data
+% (defaulted to X-XXXXX-XX-X/XX/XX).
+% e.g.
+% \CopyrightYear{2003} will cause 2002 to appear in the copyright line.
+% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line.
+%
+% ---------------------------------------------------------------------------------------------------------------
+% This .tex source is an example which *does* use
+% the .bib file (from which the .bbl file % is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission, you *NEED* to 'insert'
+% your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% ================= IF YOU HAVE QUESTIONS =======================
+% Questions regarding the SIGS styles, SIGS policies and
+% procedures, Conferences etc. should be sent to
+% Adrienne Griscti (griscti@acm.org)
+%
+% Technical questions _only_ to
+% Gerald Murray (murray@acm.org)
+% ===============================================================
+%
+% For tracking purposes - this is V1.3 - OCTOBER 2002
+
+\documentclass{sig-alternate-10pt}
+%\documentclass[letterpaper,twocolumn,10pt]{article}
+%\usepackage{usenix}
+%\usepackage[compact]{titlesec}
+\usepackage{subfigure}
+\usepackage{latexsym}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+%\usepackage{cite}
+%\usepackage{bibspacing}
+
+\allowdisplaybreaks
+
+\long\def\comment#1{}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{corollary}[lemma]{Corollary}
+
+\newcommand{\myatop}[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
+\newcommand{\subscript}[1]{\ensuremath{_\textrm{#1}}}
+\newcommand{\subsubscript}[1]{\ensuremath{_{_{_{\text{#1}}}}}}
+\newcommand{\mean}[1]{\bar{\mathsf{#1}}}
+\newcommand{\var}[1]{\mathsf{{#1}}^{\mathrm{var}}}
+
+\newcommand{\subcaption}[1]{\centerline{#1}\vspace{0.1in}}
+\newcommand{\ie}{{\em i.e.}}
+\newcommand{\eg}{{\em e.g.}}
+\newcommand{\etal}{{\em et al.}}
+\newcommand{\netcomp}[1]{\noindent {\bf #1}}
+\newcommand{\para}[1]{\smallskip\noindent {\bf #1}}
+\newcommand{\paraNS}[1]{\noindent {\bf #1}}
+\newcommand{\reminder}[1]{\textbf{XXX #1 XXX}}
+\newcommand{\defas}{\ensuremath{\stackrel{\scriptscriptstyle{\triangle}}{=}}}
+\newcommand{\negskip}{\vspace{-0.1in}}
+
+\newlength{\figurewidthA} % 1 figure in a row (1 column)
+\setlength{\figurewidthA}{0.66\columnwidth}
+
+\newlength{\figurewidthB} % 2 figures in a row (1 column)
+\setlength{\figurewidthB}{0.485\columnwidth}
+
+\newlength{\figurewidthC} % adjust sizes of figures to save space
+\setlength{\figurewidthC}{0.55\columnwidth}
+
+\newlength{\figurewidthE} % 3 figures in a row (2 columns)
+\setlength{\figurewidthE}{0.33\columnwidth}
+
+\newlength{\figurewidthF} % 4 figures in a row (2 columns)
+\setlength{\figurewidthF}{1.5in} %#0.5\columnwidth}
+
+%%%%%%%%%%%%%% GET SOME SPACE BY CHANGING TEXT SIZE %%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\baselinestretch}{1.15}
+%\setlength{\columnsep}{0.22in}
+
+%%%%%%%%% To format algorithm %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{linenum}
+\newenvironment{algorithm}[2]{\setcounter{linenum}{0}\begin{tabbing}\textsc{#1}\((#2)\)\\
+\makebox[0.2in]{}\=\+\kill}{\end{tabbing}}
+\newenvironment{algo}{\setcounter{linenum}{0}\begin{tabbing}\makebox[0.2in]{}\=\+\kill}{\end{tabbing}}
+\newenvironment{protocol}{\setcounter{linenum}{0}\begin{tabbing}\makebox[0.05in]{}\=\+\kill}{\end{tabbing}}
+\newenvironment{proto}{\setcounter{linenum}{0}\begin{tabbing}\makebox[-0.02in]{}\=\+\kill}{\end{tabbing}}
+\newcommand{\al}[1]{\'#1\\}
+\newcommand{\all}[1]{\addtocounter{linenum}{1}\arabic{linenum}\'#1\\}
+\newcommand{\av}[1]{\textit{#1}}
+\newcommand{\aproc}[2]{\textsc{#1}\((#2)\)}
+\newcommand{\kw}[1]{\textbf{#1}}
+\newcommand{\msg}[2]{$\langle$\textsl{#1};$#2 \rangle$}
+
+%%%%%%%%% GET SOME SPACE BY CHANGING THE ENVIRONMENT %%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{sitemize}{%
+  \begin{list}{$\bullet$}{%
+    %\setlength{\rightmargin}{\leftmargin}
+    \setlength{\itemsep}{0.2cm}%
+    \setlength{\leftmargin}{1.5em}%
+    \setlength{\topsep}{4pt plus 2pt minus 2pt}%
+    \setlength{\parsep}{0.0cm}}%
+  }{\end{list}}
+
+\newenvironment{senumerate}{%
+   \begin{list}{\arabic{enumi}.}{%
+    \setlength\labelwidth{1.5em}%
+    \setlength\leftmargin{1.5em}%
+    \setlength{\topsep}{4pt plus 2pt minus 2pt}%
+    \setlength\itemsep{0.0cm}%
+    \usecounter{enumi}}%
+  }{\end{list}}
+
+\newlength{\figurewidthD} % 2 figures a row (1 column)
+\setlength{\figurewidthD}{0.8\columnwidth}
+
+%%%%%%%% to calculate the time %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcount\hour \newcount\minute
+\hour=\time  \divide \hour by 60
+\minute=\time
+\loop \ifnum \minute > 59 \advance \minute by -60 \repeat
+\def\drafttime{\ifnum \hour<13 \number\hour:%
+                      \ifnum \minute<10 0\fi
+                      \number\minute
+                      \ifnum \hour<12 \ AM\else \ PM\fi
+         \else \advance \hour by -12 \number\hour:%
+                      \ifnum \minute<10 0\fi
+                      \number\minute \ PM\fi}
+\def\timestamp{\today \ \drafttime}
+
+\renewcommand{\baselinestretch}{1.01}
+
+\newcommand{\figurename}{Fig.}
+\newcommand{\captionfonts}{\small}
+
+%\makeatletter  % Allow the use of @ in command names
+%\long\def\@makecaption#1#2{%
+%  \vskip\abovecaptionskip
+%  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+%  \ifdim \wd\@tempboxa >\hsize
+%    {\captionfonts #1: #2\par}
+%  \else
+%    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+%  \fi
+%  \vskip\belowcaptionskip}
+%\makeatother   % Cancel the effect of \makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\textheight}{8.5in}
+\setlength{\topmargin}{0.5in}
+
+\begin{document}
+
+\twocolumn[%
+\begin{center}
+{\LARGE\textbf{Internet Topology Research Redux}}\\
+\bigskip
+%{\large{Paper ID: XXX\hspace{0.5in} Number of Pages: 14}}
+{\large{Walter Willinger}} \\
+{\large{\it AT\&T Labs-Research \\
+Florham Park, NJ 07932 \\ 
+{\tt walter@research.att.com}}} \\
+\medskip
+{\large{Matthew Roughan}} \\
+{\large{\it University of Adelaide \\
+Adelaide, SA, 5005 \\ 
+{\tt matthew.roughan@adelaide.edu.au}}} \\
+\end{center}
+\bigskip
+]%\twocolumn
+
+\begin{abstract}
+More than a decade of Internet topology research has produced a number of  high-profile "discoveries" that continue to fascinate the scientific community, even though (or, especially because) they have been simultaneously touted by different segments of that community as either seminal, controversial, seriously flawed, or simply wrong.  Among these highly-popularized discoveries are the observed power-law relationships of the Internet topology, the network's scale-free nature, and its extreme vulnerability to attacks that target the highly-connected nodes in its core (i.e., the Achilles' heel of the Internet). 
+
+The purpose of this chapter is to bring order to the current state of Internet topology research and separate ``the wheat from the chaff." In particular, by relying on carefully vetted data and readily available domain knowledge, we re-examine the reported discoveries and expose them to higher standards with respect to statistical inference and model validation.  In the process, we reveal the superficial nature of many of these discoveries and provide alternative solutions that reflect networking reality and do not collapse under scrutiny with high-quality data or when examined in detail by domain experts. 
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{The many facets of Internet connectivity}
+
+Internet topology research is concerned with the study of the various types of connectivity structures that are enabled by the layered architecture of the Internet.  These structures include the inherently physical components of the Internet's infrastructure (e.g., routers and switches and the fiber cables 
+connecting them) as well as a wealth of more logical topologies that can be defined and studied at the higher layers of the Internet's TCP/IP protocol stack (e.g., IP-level graph, AS-level network, Web-graph, P2P networks, Online Social Networks or OSNs).  
+
+The earliest Internet topology studies date back to the time of the NSFNET and focused mainly on the network's physical infrastructure consisting of routers, switches and the physical links connecting them (e.g., 
+see~\cite{calvert_etal1997,pansiot_grad1998}). The decommissioning of the NSFNET around 1995 led to a transition of the Internet from a largely monolithic network structure (i.e., NSFNET) to a genuinely diverse "network of networks."  Also known as Autonomous Systems (ASes), together these individual networks form what we now call the "public Internet" and and are owned by a diverse set of organizations and companies that includes large and small Internet Service Providers (ISPs), transit providers, network service providers, Fortune 500 companies and small businesses, academic and research organizations, content providers, Content Distribution Networks (DNs), Web hosting companies, and cloud providers. 
+
+With this transition came an increasing fascination of the research community with a largely economics-driven connectivity structure commonly referred to as the Internet's AS-graph; that 
+is, the logical Internet topology where nodes represent individual ASes and edges reflect observed relationships among the ASes (e.g., customer-provider, peer-peer, or sibling-sibling 
+relationship). It is important to note that the AS graph says little about how two ASes connect with one another at the physical level; in particular, it says nothing about if or how they exchange actual traffic.  Nevertheless, starting shortly after 1995, this fascination with the AS graph has resulted in thousands of research publications covering a range of aspects 
+related to measuring, modeling, and analyzing the AS-level topology of the Internet and its evolution over time~\cite{govindan_reddy1997,roughan_etal2011}.
+
+At the application layer, the emergence of the World Wide Web (WWW) in the late 1990 as a killer application generated general interest in exploring the Web-graph, where nodes represent web pages and edges denote hyperlinks~\cite{broder_etal2000}. While this overlay network or logical connectivity structure says nothing about how the servers hosting the web pages are connected at the physical or AS level, its scale and dynamics differ drastically from its physical-based or economics-driven underlays -- a typical Web-graph has billions of nodes and even more edges and is highly dynamic; a large ISP's router-level topology consists of some thousands of routers, and today's AS-level Internet is made up of some 30,000-40,000 actively routed ASes and an order of magnitude more links.
+
+Other applications that give rise to their own "overlay" or logical connectivity structure and have attracted some attention among researchers include email and various P2P systems such as Gnutella, Kad, eDonkey, and BitTorrent.  More recently, the enormous popularity of Online Social Networks (OSNs) has resulted in a staggering number of research papers dealing with all different aspects of measuring, modeling, analyzing, and designing OSNs.  Data from large-scale crawls or, in rare circumstances, OSN-provided data have been used to examine snapshots of many real-world OSNs or OSN-type systems, where the
+snapshots are generally simple graphs with nodes representing individual users and edges denoting some implicit or explicit friendship relationship among the users. 
+
+\subsection{Many interested parties with different objectives}
+
+The above-mentioned list of possible connectivity structures that exist in today's Internet is by no means complete, but illustrates how these structures arise naturally within the Internet's layered architecture. It also highlights the many different meanings of the term "Internet topology," and sensible use of this term requires explicitly specifying which facet of Internet connectivity is considered because the differences are critical.
+
+The list also reflects the different motivations that different researchers have for studying Internet-related graphs or networks.  For example, engineers are mainly concerned with the
+physical facets of Internet connectivity, where technological issues generally dominate over economic and social aspects.  However, the more economics-minded researchers are particularly
+interested in the Internet's AS-level structure where business considerations and market forces mix with technological innovation and societal considerations and shape the very shape and evolution of this logical topology.  Moreover, social scientists see in the application-level connectivity structures that result from large-scale crawls of the various OSNs new and exciting opportunities for studying different aspects of human behavior and technology-enabled inter-personal communication at previously unheard of scale. 
+
+In addition, mathematicians are interested in the different connectivity structures mainly because of their many novel features and properties that tend to require new and creative
+modeling and analysis methodologies. From the perspective of many computer scientists, the challenges posed by many of these intricate connectivity structures are algorithmic in nature and arise from trying to solve specific problems involving a particular topological structure. For yet another motivation, many physicists turned network-scientists see the Internet as one of many examples of large-scale complex networks that awaits 
+the discovery of universal properties that do not depend on system-specific details and advance our understanding of these complex networks irrespective of the domain in which they arose in the first place.
+
+\subsection{More than a decade of Internet topology research}
+
+When trying to assess the large body of literature in the area of Internet topology research that has accumulated since about 1995 and has experienced enormous grown especially during the
+last 10+ years, the picture that emerges is at best murky.  
+
+On the one hand, there are high-volume datasets of detailed network measurements that have been collected by domain experts.  These datasets have been made publicly available so other researchers can use them.  As a result, Internet topology research has become a prime example of a measurement-driven research effort, where third-party studies of the available 
+datasets abound and have contributed to a general excitement about the topic area, mainly because many of the inferred connectivity structures have been reported to exhibit surprising 
+properties (e.g., power-law relationships for inferred quantities such as node degree~\cite{f3_1999}). In turn, these surprising discoveries have led network scientists and mathematicians alike to develop new network models that are provably consistent with some of this highly-publicized empirical evidence.  Partly due to their simplicity and partly due to their strong predictive power, these newly proposed network models have become very popular within the larger scientific community~\cite{nature00,science09,science11}. For example,they have resulted in claims about the Internet that have made their way into standard textbooks on complex networks, where they are also used to support the view that a bottom-up approach dominated by domain-specific details and knowledge is largely doomed when trying to match the insight and understanding that a top-down approach centered around a general quest for "universality" promises to provide~\cite{book1,book2,book3,book4}. 
+
+On the other hand, there is a body of work within the networking research literature that argues essentially just the opposite and presents the necessary evidence in support of a inherently engineering-oriented approach filled with domain-specific details and knowledge~\cite{our1,our2,our3}. In contrast to being measurement-driven, this approach is first and foremost concerned with notions such as a network's purpose or functionality, the hard technological constraints that the different devices used to build a network's physical infrastructure have to obey, or the sources of uncertainty in a network's "environment" with respect to which the built network should be robust.  As for the measurements that have been key to the top-down approach, the reliance on domain knowledge reveals the data's sub-par quality and highlights how errors of various forms occur and can add up to produce results and claims that create excitement among non-experts but quickly collapse when scrutinized or examined by domain experts. While there exist currently no textbooks that document these failures of applying detail- and domain knowledge-agnostic perspective to the Internet, there is an increasing number of papers in the published networking research literature that detail the various mis-steps and show why findings and claims that look at first glance impressive and conclusive to a science-minded reader turn out to be simply wrong or completely meaningless when examined closely by domain experts~\cite{alderson1,alderson2,bala1}.
+
+In short, a survey of the existing literature on Internet topology research leaves one with the distinct impression that "too many cooks spoil the broth."  We hope that in the 
+not-too-distant future, this impression will be replaced by "many hand make light work", and we see this chapter as a first step towards achieving this goal.
+
+\section{Outline of proposed chapter}
+
+The following is a rough outline of the proposed book chapter. When available, we also include references to the main papers that contain the bulk of the results and arguments for each chapter. 
+
+\subsection*{Section 2: Router-level topology}
+
+\begin{description}
+\item[2.1] A look back
+\item[2.2] An ISP's physical infrastructure as a techno-socio-economic system
+\item[2.2.1] Router technology, economics, and uncertainty
+\item[2.2.2] Network design as constrained optimization
+\item[2.2.3] Heuristically optimized (router-level) topologies
+\item[2.3] Know your measurements
+\item[2.4] A look ahead
+\item[2.5] References
+\item[ ] L. Li, D. Alderson, J.C. Doyle and W. Willinger.
+A first principles approach to understanding the Internet's router-level topology, in: {\em Proc. ACM SIGCOMM'04, ACM Computer Communication Review} 34(4), 2004.
+\item[ ] Alderson, D., Li, L., Willinger, W., and Doyle, J.C. Understanding Internet Topology: Principles, Models, and Validation, in: {\em IEEE/ACM Transactions on Networking} 13(6): 1205-1218, 2005.
+\item[ ] J. C. Doyle, D. L. Alderson, L. Li, S. Low, M. Roughan, S. Shalunov, R. Tanaka, and W. Willinger. The "robust yet fragile" nature of the Internet, in: {\em PNAS} 102(41), 2005.
+\item[ ] W. Willinger, D. Alderson, and J.C. Doyle. Mathematics and the Internet: A Source of Enormous Confusion and Great Potential, in: {\em Notices of the AMS} 56(5), 2009.
+\item[ ] B. Krishnamurthy and W. Willinger. What are our standards for validation of measurement-based networking research? in: {\em Computer Communications} 34, 2011.
+\end{description}
+
+\subsection*{Section 3: AS-level topology}
+
+\begin{description}
+\item[3.1] A look back
+\item[3.2] The Internet's AS-level ecosystem
+\item[3.2.1] The customer-provider view
+\item[3.2.2] The peer-peer view
+\item[3.2.3] Beyond the graph view of the AS-level Internet
+\item[3.3] Know your measurements
+\item[3.4] A look ahead
+\item[3.5] References
+\item[ ] M. Roughan, W. Willinger, O. Maennel, D. Perouli, and R. Bush. 10 Lessons from 10 Years of Measuring and Modeling the Internet's Autonomous Systems, in: {\em IEEE Journal on Selected Areas in Communications} 29(9):1810-1821, 2011.
+\item[ ] A. Dhamdhere and C. Dovrolis. Twelve Years in the Evolution of the Internet Ecosystem, in: {\em IEEE/ACM Transactions on Networking} 19(5), 2011.
+\item[ ] B. Ager, N. Chatzis, A. Feldmann, N. Sarrar, S. Uhlig, and W. Willinger. Anatomy of a large European IXP, in: {\em Proc. ACM SIGCOMM'12, ACM Computer Communication Review} 42(4), 2012.
+\end{description}
+
+\subsection*{Section 4: PoP-level topology}
+
+\begin{description}
+\item[4.1] A look back
+\item[4.2] The geographic nature of PoP locations
+\item[4.2.1] From logical to physical connectivity
+\item[4.2.2] Who connects with whom: Where and why?
+\item[4.2.3] The pancake-view of the Internet PoP-level topology
+\item[4.3] Know your measurements
+\item[4.4] A look ahead
+\end{description}
+
+\subsection*{Section 5: Overlay topologies}
+
+\begin{description}
+\item[5.1] WWW
+\item[5.2] P2P
+\item[5.3] OSN
+\end{description}
+
+\section{Teaching experience/materials}
+
+One of the authors (WW) has developed an evolving set of slides for tutorials that he has given as part of different summer schools for Ph.D. students in Computer Science [WW09,WW11,WW12]. The other author (MR) has developed a new Honours course for the School of Mathematical Sciences at the University of Adelaide and taught it for the first time in the 2011 Fall semester [MR11]. 
+
+\begin{description}
+\item[WW09] {\em ``The Science of Complex Networks and the Internet: Lies, Damned Lies, and Statistics"}, week-long tutorial as part of the Pisa International School on the Next Generation Internet for Ph.D student training, Pisa, Italy, September 2009. \\
+{\footnotesize www.iet.unipi.it/dottinformazione/Formazione/OffForm2009}
+
+\item[WW11] {\em ``The Science of Complex Networks and the Internet: Lies, Damned lies, and Statistics"}, 3-day tutorial at the Department of Mathematical Sciences, University of Adelaide, Adelaide, Australia, February 2011. \\
+{\footnotesize www.maths.adelaide.edu.aub/matthew.roughan/workshops.html}
+
+\item[WW12] {\em ``Mapping the Internet: Past, Preseance, Future"}, 3-day tutorial at the Institute for Advanced Studies (IMT) as part of the Gruppo di Ingegneria Informatica (GII) Doctoral School 2012, Lucca, Italy, June 2012. \\
+{\footnotesize gii-infq.lab.imtlucca.it/\_pdf/slides/Internet\_Mapping}
+
+\item[MR11] {\em ``Complex Network Modeling and Inference"}, Honours Applied Math course, Department of Mathematical Sciences, University of Adelaide, Fall 2011. \\
+{\footnotesize www.maths.adelaide.edu.au/matthew.roughan/class\_notes.html}
+
+\end{description}
+\bigskip
+
+{\normalsize
+\begin{thebibliography}{99}
+
+\bibitem{nature00}
+R. Albert and A.-L. Barabasi.
+Error and attack tolerance of complex networks,
+in: {\em Nature} 406, 2000.
+
+\bibitem{alderson2}
+D.~L. Alderson and J.~C. Doyle. Contrasting views of complexity and their implications for network-centric infrastructures, 
+in: {\em IEEE Transactions on Systems, Man, and Cybernetics-Part A} 40(4), 2010.
+
+\bibitem{our2}
+D. Alderson, L. Li, W. Willinger, and J.~C. Doyle. Understanding Internet Topology: Principles, Models, and Validation, in: {\em IEEE/ACM Transactions on Networking} 13(6): 1205-1218, 2005.
+
+\bibitem{book1}
+L.-A. Barabasi.
+{\em Linked: How Everything Is Connected to Everything Else and What it Means for Business, Science, and Everyday Life}, Perseus Publishing, Cambridge, MA 2002.
+
+\bibitem{science09}
+L.-A. Barabasi. Scale-Free Networks: A Decade and Beyond, in: {\em Science} 325, 2009.
+
+\bibitem{broder_etal2000}
+A. Broder, R. Kumar, F. Maghoul, P. Raghavan, S.Rajagopalan, R. Stata, A. Tomkins, and J. Wiener. Graph structure in the Web, in: {\em Computer Networks} 33:309-320, 2000. 
+
+\bibitem{calvert_etal1997}
+K. Calvert, M.~B. Doar and E.~W. Zegura. Modeling Internet Topology, in: {\em IEEE Communications Magazine} 35:160-163, 1997.
+
+\bibitem{book2}
+S.N. Dorogovtsev and J.F.F. Mendes.
+{\em Evolution of Networks: From Biological Nets to the Internet and WWW}, Oxford University Press, Oxford, 2003.
+
+\bibitem{our3}
+J.~C. Doyle, D.~L. Alderson, L. Li, S. Low, M. Roughan, S. Shalunov, R. Tanaka, and W. Willinger. The "robust yet fragile" nature of the Internet, in: {\em PNAS} 102(41), 2005.
+
+\bibitem{f3_1999}
+M. Faloutsos, P. Faloutsos, and C. Faloutsos. On power-law relationships in the Internet topology, in: {\em Proc. ACM Sigcomm'99, ACM Computer Communication Review} 29(4), 1999.
+
+\bibitem{govindan_reddy1997}
+R. Govindan and A. Reddy. An Analysis of Inter-Domain Topology and Route Stability, in: {\em Proc. IEEE INFOCOM'97}, 1997.
+
+\bibitem{bala1}
+B. Krishnamurthy and W. Willinger. What are our standards for validation of measurement-based networking research? in: {\em Computer Communications} 34, 2011.
+
+\bibitem{our1}
+L. Li, D. Alderson, J.C. Doyle and W. Willinger. A first principles approach to understanding the Internet's router-level topology, in: {\em Proc. ACM SIGCOMM'04, ACM Computer Communication Review} 34(4), 2004.
+
+\bibitem{book4}
+M. E. J. Newman. {\em Networks: An Introduction}, Oxford University Press, March 2010.
+
+\bibitem{pansiot_grad1998}
+J.-J. Pansiot and D. Grad. On routes and multicast trees in the Internet, in: {\em  Computer Communication Review} 28(1):41-50, 1998
+
+\bibitem{book3}
+R. Pastor-Satorras and A. Vespignani. {\em Evolution and Structure of the Internet: A Statistical Physics Approach}, Cambridge University Press, Cambridge, 2004.
+   
+\bibitem{roughan_etal2011}
+M. Roughan, W. Willinger, O. Maennel, D. Perouli, and R. Bush. 10 Lessons from 10 Years of Measuring and Modeling the Internet's Autonomous Systems, in: {\em IEEE Journal on Selected Areas in Communications} 29(9):1810-1821, 2011.
+
+\bibitem{science11}
+Insights of the Decade, in: {\em Science} 330, Dec. 2010.
+
+\bibitem{alderson1}
+W. Willinger, D. Alderson, and J.~C. Doyle. Mathematics and the Internet: A Source of Enormous Confusion and Great Potential, 
+in: {\em Notices of the AMS} 56(5), 2009.
+
+\end{thebibliography}
+}
+
+
+\end{document}
